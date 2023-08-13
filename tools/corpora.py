@@ -296,8 +296,8 @@ class Enwik8(DataDownloader):
 class WikiJaEn(DataDownloader):
     name = "wiki_ja_en"
     urls = [
-        "jawikibooks-20230807-cirrussearch-content.json.gz",
-        "enwiki-20230807-cirrussearch-content.json.gz"
+        "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",
+        "https://dumps.wikimedia.org/other/cirrussearch/20230807/enwiki-20230807-cirrussearch-content.json.gz"
     ]
 
 
