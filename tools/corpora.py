@@ -293,6 +293,14 @@ class Enwik8(DataDownloader):
     urls = ["https://data.deepai.org/enwik8.zip"]
 
 
+class WikiJaEn(DataDownloader):
+    name = "wiki_ja_en"
+    urls = [
+        "jawikibooks-20230807-cirrussearch-content.json.gz",
+        "enwiki-20230807-cirrussearch-content.json.gz"
+    ]
+
+
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
     if tokenizer_type is None or tokenizer_type == "GPT2BPETokenizer":
         GPT2_VOCAB_FP = f"{data_dir}//gpt2-vocab.json"
@@ -324,6 +332,7 @@ DATA_DOWNLOADERS = {
     "c4": C4,
     "c4_openwebtext": C4OpenWebText,
     "enwik8": Enwik8,
+    'wiki_ja_en': WikiJaEn
 }
 
 
