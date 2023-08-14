@@ -187,6 +187,9 @@ def main():
         encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
     else:
         encoder.initializer()
+        for doc in fin:
+            a = encoder.encode(doc)
+            print('a,', a)
         encoded_docs = (encoder.encode(doc) for doc in fin)
 
     # make a dataset builder for each key in args.jsonl_keys
