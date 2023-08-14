@@ -183,6 +183,7 @@ def main():
     # use multiprocessing to iterate over input documents
     fin = yield_from_files(args.input.split(","), semaphore)
 
+    print('args.workers', args.workers)
     if args.workers > 1:
         pool = multiprocessing.Pool(args.workers, initializer=encoder.initializer)
         encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
