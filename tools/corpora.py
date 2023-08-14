@@ -301,6 +301,13 @@ class WikiJaEn(DataDownloader):
     ]
 
 
+class WikiJa(DataDownloader):
+    name = "wiki_ja"
+    urls = [
+        "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",        
+    ]
+
+
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
     if tokenizer_type is None or tokenizer_type == "GPT2BPETokenizer":
         GPT2_VOCAB_FP = f"{data_dir}//gpt2-vocab.json"
@@ -332,7 +339,8 @@ DATA_DOWNLOADERS = {
     "c4": C4,
     "c4_openwebtext": C4OpenWebText,
     "enwik8": Enwik8,
-    'wiki_ja_en': WikiJaEn
+    'wiki_ja_en': WikiJaEn,
+    'wiki_ja': WikiJa
 }
 
 
