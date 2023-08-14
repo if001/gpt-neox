@@ -49,7 +49,7 @@ class Encoder(object):
     def encode(self, text):
         if self.args.ftfy:
             text = ftfy.fix_text(text)
-            
+        print('text,', text)
         ids = {}
         for key in self.args.jsonl_keys:
             doc_ids = []
@@ -192,8 +192,7 @@ def main():
         for doc in fin:
             if 'text' in doc:
                 new_fin.append(doc['text'])        
-        encoded_docs = (encoder.encode(doc) for doc in new_fin)
-        
+        encoded_docs = (encoder.encode(doc) for doc in new_fin)        
         # encoded_docs = (encoder.encode(doc) for doc in fin)
 
     # make a dataset builder for each key in args.jsonl_keys
