@@ -49,7 +49,7 @@ class Encoder(object):
     def encode(self, text):
         if self.args.ftfy:
             text = ftfy.fix_text(text)
-        print('text', text)
+            
         ids = {}
         for key in self.args.jsonl_keys:
             doc_ids = []
@@ -188,10 +188,13 @@ def main():
         encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
     else:
         encoder.initializer()
+        new_fin = []
         for doc in fin:
-            a = encoder.encode(doc)
-            print('a,', a)
-        encoded_docs = (encoder.encode(doc) for doc in fin)
+            if 'text' in doc:
+                new_fin.append(doc['text'])        
+        encoded_docs = (encoder.encode(doc) for doc in new_fin)
+        
+        # encoded_docs = (encoder.encode(doc) for doc in fin)
 
     # make a dataset builder for each key in args.jsonl_keys
     # each key will output to a different file beginning with args.output_prefix
