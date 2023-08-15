@@ -15,6 +15,7 @@
   # "weight_by_num_documents": false,
   # "weighted_sampler_alpha": 0.3,
 
+  "tokenizer_type": "SPMTokenizer",
   "vocab_file": "./novelAI/tokenizer.model",  
 
   "save": "checkpoints",
