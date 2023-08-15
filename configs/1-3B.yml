@@ -90,5 +90,5 @@
    "wall_clock_breakdown": true,
 
    ## tokenizer type
-   "tokenizer_type": "HFTokenizer",
+   "tokenizer_type": "SPMTokenizer",
 }
