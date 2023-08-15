@@ -159,7 +159,8 @@ def yield_from_files(fnames: list, semaphore):
     """
 
     def yielder(fname, semaphore):
-        for f in filter(lambda x: x, lmd.Reader(fname).stream_data()):
+        stream = filter(lambda x: x, lmd.Reader(fname).stream_data())    
+        for f in filter(lambda x: x, 'text' in stream):
             print('f', f)
             semaphore.acquire()
             yield f
@@ -182,23 +183,14 @@ def main():
     semaphore = Semaphore(10000 + args.workers)
 
     # use multiprocessing to iterate over input documents
-    fin = yield_from_files(args.input.split(","), semaphore)
-    new_fin = []
-    for doc in fin:
-        if 'text' in doc:                
-            new_fin.append(doc['text']) 
-    print('args.workers', args.workers)
+    fin = yield_from_files(args.input.split(","), semaphore)    
     if args.workers > 1:
         pool = multiprocessing.Pool(args.workers, initializer=encoder.initializer)
         # encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
-        encoded_docs = pool.imap(encoder.encode, new_fin, chunksize=25)
+        encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
     else:
-        encoder.initializer()
-        new_fin = []
-        for doc in fin:
-            if 'text' in doc:                
-                new_fin.append(doc['text'])        
-        encoded_docs = (encoder.encode(doc) for doc in new_fin)        
+        encoder.initializer()     
+        encoded_docs = (encoder.encode(doc) for doc in fin)
         # encoded_docs = (encoder.encode(doc) for doc in fin)
 
     # make a dataset builder for each key in args.jsonl_keys
