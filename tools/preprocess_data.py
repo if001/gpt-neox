@@ -158,16 +158,26 @@ def yield_from_files(fnames: list, semaphore):
     :param fnames: list of filenames
     """
 
-    def yielder(fname, semaphore):
+    def yielder(fname, semaphore):        
+        for f in filter(lambda x: x, lmd.Reader(fname).stream_data()):
+            semaphore.acquire()
+            yield f
+
+    def wiki_yielder(fname, semaphore):
         stream = filter(lambda x: x, lmd.Reader(fname).stream_data())    
-        for f in filter(lambda x: 'text' in x, stream):            
+        for f in filter(lambda x: 'text' in x, stream):
             semaphore.acquire()
             yield f['text']
 
     for fname in fnames:
         semaphore.acquire()
-
-        yield from yielder(fname, semaphore)
+        print('fname', fname)
+        if 'wiki' in fname:        
+            yield from wiki_yielder(fname, semaphore)
+        else:
+            yield from yielder(fname, semaphore)
+        
+        
 
 
 def main():
@@ -182,7 +192,7 @@ def main():
     semaphore = Semaphore(10000 + args.workers)
 
     # use multiprocessing to iterate over input documents
-    fin = yield_from_files(args.input.split(","), semaphore)    
+    fin = yield_from_files(args.input.split(","), semaphore)
     if args.workers > 1:
         pool = multiprocessing.Pool(args.workers, initializer=encoder.initializer)
         # encoded_docs = pool.imap(encoder.encode, fin, chunksize=25)
