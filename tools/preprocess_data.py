@@ -57,6 +57,7 @@ class Encoder(object):
             if len(text_ids) > 0:
                 doc_ids.append(text_ids)
             if self.args.append_eod:
+                print('doc_ids', doc_ids)
                 doc_ids[-1].append(Encoder.tokenizer.eod)
             ids[key] = doc_ids
         return ids, len(text)
