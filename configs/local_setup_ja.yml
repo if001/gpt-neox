@@ -1,6 +1,7 @@
 # Suggested data paths when using GPT-NeoX locally
 {
-  "data_path": "data/wiki_ja",
+  # "data_path": "data/wiki_ja",
+  "data_path": "data/wiki_ja/wiki_ja_text_document",
 
   # or for weighted datasets:
   # "train-data-paths": ["data/enwik8/enwik8_text_document", "data/enwik8/enwik8_text_document"],
