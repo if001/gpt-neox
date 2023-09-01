@@ -90,5 +90,8 @@
    "wall_clock_breakdown": true,
 
   #  networking
-  "hostfile": "/mock_path"
+  "hostfile": "/mock_path",
+
+  ## tokenizer type
+  "tokenizer_type": "SPMTokenizer"
 }
