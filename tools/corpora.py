@@ -345,7 +345,7 @@ class HFDataDownloader(DataDownloader):
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
     urls = [""]
-    hf_repo_ids = [
+    super().hf_repo_ids = [
         'if001/oscar_2023_filtered'
     ]
 
