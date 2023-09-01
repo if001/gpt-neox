@@ -330,11 +330,15 @@ class WikiOSCARJa(DataDownloaderWithHF):
 
 
 class HFDataDownloader(DataDownloader):
-    def __init__(self, hf_repo_ids = [], *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.hf_repo_ids = hf_repo_ids
 
-    def download(self):  
+    @property
+    @abstractmethod
+    def hf_repo_ids(self):
+        pass
+
+    def download(self):
         from huggingface_hub import snapshot_download 
         save_dir = os.path.join(self.base_dir, self.name)
         print('donwload0', self.hf_repo_ids)
@@ -345,9 +349,7 @@ class HFDataDownloader(DataDownloader):
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
     urls = [""]
-    super().hf_repo_ids = [
-        'if001/oscar_2023_filtered'
-    ]
+    hf_repo_ids = ['if001/oscar_2023_filtered']
 
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
