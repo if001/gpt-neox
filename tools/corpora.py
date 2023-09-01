@@ -339,11 +339,13 @@ class HFDataDownloader(DataDownloader):
         pass
 
     def download(self):
-        from datasets import load_dataset        
+        from datasets import load_dataset, config
+        from pathlib import Path
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
             print('save to', save_dir)
-            load_dataset(repo_id, data_dir=save_dir)
+            config.DOWNLOADED_DATASETS_PATH = Path(save_dir)
+            load_dataset(repo_id)
 
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
