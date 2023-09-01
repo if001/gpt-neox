@@ -21,8 +21,6 @@
   "save": "checkpoints",
   "load": "checkpoints",
   "checkpoint_validation_with_forward_pass": False,
-  
-  "save_interval": 10000,
 
   ## logging
   "log_dir": "logs",
