@@ -319,11 +319,30 @@ class DataDownloaderWithHF(DataDownloader):
         for repo_id in self.hf_repo_ids:
             snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
 
-class WikiOSCARJa(DataDownloader):
+class WikiOSCARJa(DataDownloaderWithHF):
     name = "wiki_oscar_ja"
     urls = [
         "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",        
     ]
+    hf_repo_ids = [
+        'if001/oscar_2023_filtered'
+    ]
+
+
+class HFDataDownloader(DataDownloader):
+    def __init__(self, hf_repo_ids = [], *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hf_repo_ids = hf_repo_ids
+
+    def download(self):        
+        from huggingface_hub import snapshot_download 
+        save_dir = os.path.join(self.base_dir, self.name)
+        for repo_id in self.hf_repo_ids:
+            snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
+
+class OSCARJa(HFDataDownloader):
+    name = "oscar_ja"
+    urls = [""]
     hf_repo_ids = [
         'if001/oscar_2023_filtered'
     ]
@@ -362,6 +381,7 @@ DATA_DOWNLOADERS = {
     "enwik8": Enwik8,
     'wiki_ja_en': WikiJaEn,
     'wiki_ja': WikiJa,
+    'oscar_ja': OSCARJa,
     'wiki_oscar_ja': WikiOSCARJa
 }
 
