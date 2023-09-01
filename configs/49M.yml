@@ -83,7 +83,6 @@
   "checkpoint_factor": 1000,
   "eval_interval": 100000,
   "eval_iters": 10,
-  "save_interval": 10000,
 
   # logging
   "log_interval": 10,
