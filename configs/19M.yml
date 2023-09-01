@@ -90,6 +90,8 @@
         "prof_all": true,
         "debug": false
     },
-  }
-
+  },
+  
+  ## tokenizer type
+  "tokenizer_type": "SPMTokenizer"
 }

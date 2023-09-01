@@ -104,7 +104,8 @@
   "wall_clock_breakdown": false,
 
   ### NEW DATA: ####
-  "tokenizer_type": "HFTokenizer",
+  # "tokenizer_type": "HFTokenizer",
+  "tokenizer_type": "SPMTokenizer"
   "tensorboard-dir": "./tensorboard",
   "log_dir": "./logs",
 
