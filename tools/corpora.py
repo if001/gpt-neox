@@ -316,8 +316,8 @@ class DataDownloaderWithHF(DataDownloader):
         super().download()
         from huggingface_hub import snapshot_download 
         save_dir = os.path.join(self.base_dir, self.name)
-        for repo_id in self.hf_repo_ids:
-            snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
+        for repo_id in self.hf_repo_ids:            
+            snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir, repo_type='dataset')
 
 class WikiOSCARJa(DataDownloaderWithHF):
     name = "wiki_oscar_ja"
@@ -338,14 +338,13 @@ class HFDataDownloader(DataDownloader):
     def hf_repo_ids(self):
         pass
 
-    def download(self):
-        from datasets import load_dataset, config
-        from pathlib import Path
+    def download(self):        
+        from huggingface_hub import snapshot_download        
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
             print('save to', save_dir)
-            config.DOWNLOADED_DATASETS_PATH = Path(save_dir)
-            load_dataset(repo_id)
+            snapshot_download(repo_id=repo_id, allow_patterns="*.jsonl.zst", local_dir=save_dir)
+
 
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"

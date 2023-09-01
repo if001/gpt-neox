@@ -49,7 +49,7 @@ class Encoder(object):
     def encode(self, text):
         if self.args.ftfy:
             text = ftfy.fix_text(text)
-        print('text,', text)
+        # print('text,', text)
         ids = {}
         for key in self.args.jsonl_keys:
             doc_ids = []
