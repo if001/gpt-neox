@@ -338,6 +338,7 @@ class HFDataDownloader(DataDownloader):
         from huggingface_hub import snapshot_download 
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
+            print('download', save_dir)
             snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
 
 class OSCARJa(HFDataDownloader):
