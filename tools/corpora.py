@@ -307,6 +307,27 @@ class WikiJa(DataDownloader):
         "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",        
     ]
 
+class DataDownloaderWithHF(DataDownloader):
+    def __init__(self, hf_repo_ids = [], *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hf_repo_ids = hf_repo_ids
+
+    def download(self):
+        super().download()
+        from huggingface_hub import snapshot_download 
+        save_dir = os.path.join(self.base_dir, self.name)
+        for repo_id in self.hf_repo_ids:
+            snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
+
+class WikiOSCARJa(DataDownloader):
+    name = "wiki_oscar_ja"
+    urls = [
+        "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",        
+    ]
+    hf_repo_ids = [
+        'if001/oscar_2023_filtered'
+    ]
+
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
     if tokenizer_type is None or tokenizer_type == "GPT2BPETokenizer":
@@ -340,7 +361,8 @@ DATA_DOWNLOADERS = {
     "c4_openwebtext": C4OpenWebText,
     "enwik8": Enwik8,
     'wiki_ja_en': WikiJaEn,
-    'wiki_ja': WikiJa
+    'wiki_ja': WikiJa,
+    'wiki_oscar_ja': WikiOSCARJa
 }
 
 
