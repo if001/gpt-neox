@@ -342,9 +342,8 @@ class HFDataDownloader(DataDownloader):
         from datasets import load_dataset        
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
-            ds=load_dataset(repo_id)
             print('save to', save_dir)
-            ds.save_to_disk(save_dir)
+            load_dataset(repo_id, data_dir=save_dir)
 
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
