@@ -339,12 +339,11 @@ class HFDataDownloader(DataDownloader):
         pass
 
     def download(self):
-        from huggingface_hub import snapshot_download 
+        from datasets import load_dataset        
         save_dir = os.path.join(self.base_dir, self.name)
-        print('donwload0', self.hf_repo_ids)
         for repo_id in self.hf_repo_ids:
-            print('download', save_dir)
-            snapshot_download(repo_id=repo_id, revision="main", allow_patterns="*.jsonl", local_dir=save_dir)
+            ds=load_dataset(repo_id)
+            ds.save_to_disk(save_dir)
 
 class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
