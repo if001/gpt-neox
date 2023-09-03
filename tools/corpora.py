@@ -345,7 +345,7 @@ class HFDataDownloader(DataDownloader):
                 allow_patterns="*.jsonl.zst"
             if 'globis-university/aozorabunko-clean' == repo_id:
                 allow_patterns="*.jsonl.gz"
-            snapshot_download(repo_id=repo_id, allow_patterns=allow_patterns, local_dir=save_dir)
+            snapshot_download(repo_id=repo_id, allow_patterns=allow_patterns, local_dir=save_dir, repo_type="dataset")
 
 
 class OSCARJa(HFDataDownloader):
