@@ -341,7 +341,11 @@ class HFDataDownloader(DataDownloader):
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
             print('save to', save_dir)
-            snapshot_download(repo_id=repo_id, allow_patterns="*.jsonl.zst", local_dir=save_dir)
+            if 'if001/oscar_2023_filtered' == repo_id:
+                allow_patterns="*.jsonl.zst"
+            if 'globis-university/aozorabunko-clean' == repo_id:
+                allow_patterns="*.jsonl.gz"
+            snapshot_download(repo_id=repo_id, allow_patterns=allow_patterns, local_dir=save_dir)
 
 
 class OSCARJa(HFDataDownloader):
