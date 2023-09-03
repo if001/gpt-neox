@@ -77,9 +77,11 @@
   "checkpoint_factor": 1000,
   "eval_interval": 100000,
   "eval_iters": 10,
+  "keep_last_n_checkpoints": 4,
+  "save_interval": 10000,
 
-  "log_interval": 10,
-  "steps_per_print": 10,
+  "log_interval": 100,
+  "steps_per_print": 100,
   "wall_clock_breakdown": true,
 
   # additional deepspeed args not specified above
