@@ -293,10 +293,9 @@ class Enwik8(DataDownloader):
     urls = ["https://data.deepai.org/enwik8.zip"]
 
 
-class WikiJaEn(DataDownloader):
-    name = "wiki_ja_en"
-    urls = [
-        "https://dumps.wikimedia.org/other/cirrussearch/20230807/jawiki-20230807-cirrussearch-content.json.gz",
+class WikiEn(DataDownloader):
+    name = "wiki_en"
+    urls = [        
         "https://dumps.wikimedia.org/other/cirrussearch/20230807/enwiki-20230807-cirrussearch-content.json.gz"
     ]
 
@@ -328,7 +327,6 @@ class WikiOSCARJa(DataDownloaderWithHF):
         'if001/oscar_2023_filtered'
     ]
 
-
 class HFDataDownloader(DataDownloader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -350,6 +348,11 @@ class OSCARJa(HFDataDownloader):
     name = "oscar_ja"
     urls = [""]
     hf_repo_ids = ['if001/oscar_2023_filtered']
+
+class AozoraJa(HFDataDownloader):
+    name = "aozora_ja"
+    urls = [""]
+    hf_repo_ids = ['globis-university/aozorabunko-clean']
 
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
@@ -383,10 +386,11 @@ DATA_DOWNLOADERS = {
     "c4": C4,
     "c4_openwebtext": C4OpenWebText,
     "enwik8": Enwik8,
-    'wiki_ja_en': WikiJaEn,
+    'wiki_en': WikiEn,
     'wiki_ja': WikiJa,
     'oscar_ja': OSCARJa,
-    'wiki_oscar_ja': WikiOSCARJa
+    'wiki_oscar_ja': WikiOSCARJa,
+    'aozora_ja': AozoraJa
 }
 
 
