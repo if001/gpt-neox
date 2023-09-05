@@ -176,6 +176,7 @@ def yield_from_files(fnames: list, semaphore):
     def aozora_yielder(fname, semaphore):        
         for f in filter(lambda x: x, lmd.Reader(fname).stream_data()):
             semaphore.acquire()
+            print('f', f)
             yield f['text']
 
     for fname in fnames:
