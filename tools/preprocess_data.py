@@ -32,6 +32,7 @@ import time
 import tqdm
 import torch
 import ftfy
+import json
 
 from megatron.tokenizer import build_tokenizer
 from megatron.data import indexed_dataset
@@ -178,8 +179,8 @@ def yield_from_files(fnames: list, semaphore):
             semaphore.acquire()
             print('f', f)
             print('f type', type(f))
-            print('f text', f['text'])
-            yield f['text']
+            print('f text', f['text'])            
+            yield json.load(f)['text']
 
     for fname in fnames:
         semaphore.acquire()
