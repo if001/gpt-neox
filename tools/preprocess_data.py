@@ -174,7 +174,7 @@ def yield_from_files(fnames: list, semaphore):
             semaphore.acquire()
             yield f['text']
 
-    def wiki_yielder(fname, semaphore):
+    def aozora_yielder(fname, semaphore):
         for f in filter(lambda x: x, lmd.Reader(fname).stream_data()):
             semaphore.acquire()
             yield json.load(f)['text']
@@ -185,7 +185,7 @@ def yield_from_files(fnames: list, semaphore):
         if 'wiki' in fname:        
             yield from wiki_yielder(fname, semaphore)
         if 'aozora' in fname:
-            yield from wiki_yielder(fname, semaphore)            
+            yield from aozora_yielder(fname, semaphore)
         else:
             yield from yielder(fname, semaphore)
 
