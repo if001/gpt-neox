@@ -343,7 +343,7 @@ class HFDataDownloader(DataDownloader):
             print('save to', save_dir)
             if 'if001/oscar_2023_filtered' == repo_id:
                 allow_patterns="*.jsonl.zst"
-            if 'globis-university/aozorabunko-clean' == repo_id:
+            if 'if001/aozorabunko-clean-sin' == repo_id:
                 allow_patterns="*.jsonl.gz"
             snapshot_download(repo_id=repo_id, allow_patterns=allow_patterns, local_dir=save_dir, repo_type="dataset")
 
@@ -356,7 +356,7 @@ class OSCARJa(HFDataDownloader):
 class AozoraJa(HFDataDownloader):
     name = "aozora_ja"
     urls = [""]
-    hf_repo_ids = ['globis-university/aozorabunko-clean']
+    hf_repo_ids = ['if001/aozorabunko-clean-sin']
 
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
