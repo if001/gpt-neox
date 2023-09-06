@@ -87,9 +87,9 @@
   # additional deepspeed args not specified above
   "deepspeed_extra_args": {
     "comms_logger": {
-        "enabled": true,
+        "enabled": false,
         "verbose": false,
-        "prof_all": true,
+        "prof_all": false,
         "debug": false
     },
   },
