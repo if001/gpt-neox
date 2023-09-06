@@ -790,8 +790,7 @@ def train(
 
     # to monitor if we've skipped many iterations in a row and trigger an early exit
     overflow_monitor = OverflowMonitor(optimizer)
-    while iteration < neox_args.train_iters:
-        print('0000'*100)
+    while iteration < neox_args.train_iters:        
         loss_dict, skipped_iter = train_step(
             neox_args=neox_args,
             timers=timers,
@@ -800,7 +799,6 @@ def train(
             optimizer=optimizer,
             lr_scheduler=lr_scheduler,
         )
-        print('1111'*100)
         iteration += 1
         neox_args.iteration = iteration
         if neox_args.precision == "fp16":
