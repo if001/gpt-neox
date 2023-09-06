@@ -4,12 +4,12 @@
   # "data_path": "data/wiki_ja/wiki_ja_text_document",
 
   # or for weighted datasets:
-  "train-data-paths": ["data/wiki_ja/wiki_ja_text_document", "data/oscar_ja/oscar_ja_text_document"],
-  "test-data-paths": ["data/wiki_ja/wiki_ja_text_document", "data/oscar_ja/oscar_ja_text_document"],
-  "valid-data-paths": ["data/wiki_ja/wiki_ja_text_document", "data/oscar_ja/oscar_ja_text_document"],
-  "train-data-weights": [1., 1.],
-  "test-data-weights": [0.1, 0.1],
-  "valid-data-weights": [0.1, 0.1],
+  "train-data-paths": ["data/wiki_ja_novelAI_bin/wiki_ja_text_document", "data/oscar_ja_novelAI_bin/oscar_ja_text_document","wiki_en_novelAI_bin/wiki_en_text_document" ,"aozora_ja_novelAI_bin/aozora_ja_text_document"],
+  "test-data-paths": ["data/wiki_ja_novelAI_bin/wiki_ja_text_document", "data/oscar_ja_novelAI_bin/oscar_ja_text_document","wiki_en_novelAI_bin/wiki_en_text_document" ,"aozora_ja_novelAI_bin/aozora_ja_text_document"],
+  "valid-data-paths": ["data/wiki_ja_novelAI_bin/wiki_ja_text_document", "data/oscar_ja_novelAI_bin/oscar_ja_text_document","wiki_en_novelAI_bin/wiki_en_text_document" ,"aozora_ja_novelAI_bin/aozora_ja_text_document"],
+  "train-data-weights": [0.9, 0.9, 0.9, 0.9],
+  "test-data-weights": [0.1, 0.1, 0.1, 0.1],
+  "valid-data-weights": [0.1, 0.1, 0.1, 0.1],
 
   # If weight_by_num_documents is True, Builds dataset weights from a multinomial distribution over groups of data according to the number of documents in each group.
   # WARNING: setting this to True will override any user provided weights

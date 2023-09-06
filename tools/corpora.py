@@ -327,7 +327,7 @@ class WikiOSCARJa(DataDownloaderWithHF):
         'if001/oscar_2023_filtered'
     ]
 
-class HFDataDownloader(DataDownloader):
+class HFSnapshotDownloader(DataDownloader):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -341,6 +341,7 @@ class HFDataDownloader(DataDownloader):
         save_dir = os.path.join(self.base_dir, self.name)
         for repo_id in self.hf_repo_ids:
             print('save to', save_dir)
+            allow_patterns = None
             if 'if001/oscar_2023_filtered' == repo_id:
                 allow_patterns="*.jsonl.zst"
             if 'if001/aozorabunko-clean-sin' == repo_id:
@@ -348,15 +349,44 @@ class HFDataDownloader(DataDownloader):
             snapshot_download(repo_id=repo_id, allow_patterns=allow_patterns, local_dir=save_dir, repo_type="dataset")
 
 
-class OSCARJa(HFDataDownloader):
+class OSCARJa(HFSnapshotDownloader):
     name = "oscar_ja"
     urls = [""]
     hf_repo_ids = ['if001/oscar_2023_filtered']
 
-class AozoraJa(HFDataDownloader):
+class AozoraJa(HFSnapshotDownloader):
     name = "aozora_ja"
     urls = [""]
     hf_repo_ids = ['if001/aozorabunko-clean-sin']
+
+class HFDataDownloader(DataDownloader):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @property
+    @abstractmethod
+    def hf_repo_ids(self):
+        pass
+
+    def download(self):        
+        from datasets import load_dataset
+        save_dir = os.path.join(self.base_dir, self.name)
+        for repo_id in self.hf_repo_ids:
+            ds = load_dataset(repo_id)
+            name = repo_id.split('/')[0]
+            save_path = f'{save_dir}/{name}.json'
+            print('save to', save_path)
+            ds['train'].to_json(save_path)
+
+
+class IzumiDataset(HFSnapshotDownloader):
+    name = "izumi_dataset"
+    urls = [""]
+    hf_repo_ids = [
+        "izumi-lab/wikipedia-ja-20230720",
+        "izumi-lab/wikipedia-en-20230720",
+        "izumi-lab/wikinews-ja-20230728"
+    ]
 
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
@@ -394,7 +424,8 @@ DATA_DOWNLOADERS = {
     'wiki_ja': WikiJa,
     'oscar_ja': OSCARJa,
     'wiki_oscar_ja': WikiOSCARJa,
-    'aozora_ja': AozoraJa
+    'aozora_ja': AozoraJa,
+    'izumi_dataset': IzumiDataset
 }
 
 
