@@ -814,7 +814,7 @@ def train(
             lr = 0
 
         # Logging.
-        print('hoge'*100)
+        print('aaaa'*100)
         report_memory_flag = training_log(
             neox_args=neox_args,
             timers=timers,
@@ -846,6 +846,7 @@ def train(
             and iteration % neox_args.eval_interval == 0
             and neox_args.do_valid
         ):
+            print('cccc'*100)
             prefix = "iteration {}".format(iteration)
             evaluate_and_print_results(
                 neox_args=neox_args,
@@ -857,7 +858,8 @@ def train(
                 verbose=False,
                 timers=timers,
             )
-
+            print('dddd'*100)
+        print('eeee'*100)
         if neox_args.exit_interval and iteration % neox_args.exit_interval == 0:
             torch.distributed.barrier()
             time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -868,7 +870,7 @@ def train(
                 )
             )
             sys.exit()
-
+        print('ffff'*100)
     return iteration
 
 
