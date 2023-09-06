@@ -747,7 +747,9 @@ def train_step_pipe(neox_args, timers, model, data_iterator):
     """Single training step with DeepSpeed's pipeline parallel engine."""
 
     assert neox_args.deepspeed
+    print('1'*100)
     loss = model.train_batch(data_iter=data_iterator)
+    print('2'*100)
     loss_dict = {"lm_loss": loss}
     # Don't break Megatron's timers because we changed code paths.
     for t in [
@@ -826,8 +828,7 @@ def train(
             model=model,
             optimizer=optimizer,
             noise_scale_logger=noise_scale_logger,
-        )
-        print('3333'*100)
+        )        
         # Checkpointing
         if neox_args.save and iteration in neox_args.save_iters:
             save_checkpoint(
