@@ -791,6 +791,7 @@ def train(
     # to monitor if we've skipped many iterations in a row and trigger an early exit
     overflow_monitor = OverflowMonitor(optimizer)
     while iteration < neox_args.train_iters:
+        print('0000'*100)
         loss_dict, skipped_iter = train_step(
             neox_args=neox_args,
             timers=timers,
@@ -799,13 +800,14 @@ def train(
             optimizer=optimizer,
             lr_scheduler=lr_scheduler,
         )
+        print('1111'*100)
         iteration += 1
         neox_args.iteration = iteration
         if neox_args.precision == "fp16":
             overflow_monitor.check(skipped_iter)  # check for repeated overflow
         if neox_args.log_gradient_noise_scale:  # log noise scale if applicable
             noise_scale_logger.update()
-
+        print('2222'*100)
         # get learning rate (if present) - if doing soft prompt tuning + pipe parallel, you
         # may have no tunable parameters on a specific rank
         if optimizer.param_groups:
