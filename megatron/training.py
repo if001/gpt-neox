@@ -747,9 +747,7 @@ def train_step_pipe(neox_args, timers, model, data_iterator):
     """Single training step with DeepSpeed's pipeline parallel engine."""
 
     assert neox_args.deepspeed
-    print('0000'*100)
     loss = model.train_batch(data_iter=data_iterator)
-    print('1111'*100)
     loss_dict = {"lm_loss": loss}
     # Don't break Megatron's timers because we changed code paths.
     for t in [
@@ -806,8 +804,7 @@ def train(
         if neox_args.precision == "fp16":
             overflow_monitor.check(skipped_iter)  # check for repeated overflow
         if neox_args.log_gradient_noise_scale:  # log noise scale if applicable
-            noise_scale_logger.update()
-        print('2222'*100)
+            noise_scale_logger.update()        
         # get learning rate (if present) - if doing soft prompt tuning + pipe parallel, you
         # may have no tunable parameters on a specific rank
         if optimizer.param_groups:
