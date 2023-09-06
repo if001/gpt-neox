@@ -705,7 +705,6 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
         for _ in range(neox_args.gradient_accumulation_steps):
             # Forward model for one step.
             timers("forward").start()
-            print('aaaa'*100)
             loss = forward_step(
                 neox_args=neox_args,
                 timers=timers,
@@ -713,7 +712,6 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
                 model=model,
                 is_train=True,
             )
-            print('bbbb'*100)
             timers("forward").stop()
             losses.append(loss)
             # Calculate gradients, reduce across processes, and clip.
@@ -724,8 +722,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
                 optimizer=optimizer,
                 model=model,
                 loss=loss,
-            )
-            print('ccccc'*100)
+            )            
             timers("backward").stop()
             # Update parameters.
             timers("optimizer").start()
@@ -737,7 +734,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
         reduced_loss = {
             "lm_loss": reduce_losses(losses).mean()
         }  # reduces losses across machines for logging
-    print('dddd'*100)
+    
     if neox_args.precision == "fp16" and model.optimizer.overflow:
         skipped_iter = 1
     else:
@@ -750,7 +747,9 @@ def train_step_pipe(neox_args, timers, model, data_iterator):
     """Single training step with DeepSpeed's pipeline parallel engine."""
 
     assert neox_args.deepspeed
+    print('aaaa'*100)
     loss = model.train_batch(data_iter=data_iterator)
+    print('bbbb'*100)
     loss_dict = {"lm_loss": loss}
     # Don't break Megatron's timers because we changed code paths.
     for t in [
