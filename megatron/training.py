@@ -814,6 +814,7 @@ def train(
             lr = 0
 
         # Logging.
+        print('hoge'*100)
         report_memory_flag = training_log(
             neox_args=neox_args,
             timers=timers,
@@ -828,7 +829,7 @@ def train(
             optimizer=optimizer,
             noise_scale_logger=noise_scale_logger,
         )
-
+        print('bbbb'*100)
         # Checkpointing
         if neox_args.save and iteration in neox_args.save_iters:
             save_checkpoint(
