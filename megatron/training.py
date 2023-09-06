@@ -705,6 +705,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
         for _ in range(neox_args.gradient_accumulation_steps):
             # Forward model for one step.
             timers("forward").start()
+            print('aaaa'*100)
             loss = forward_step(
                 neox_args=neox_args,
                 timers=timers,
@@ -712,6 +713,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
                 model=model,
                 is_train=True,
             )
+            print('bbbb'*100)
             timers("forward").stop()
             losses.append(loss)
             # Calculate gradients, reduce across processes, and clip.
@@ -723,6 +725,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
                 model=model,
                 loss=loss,
             )
+            print('ccccc'*100)
             timers("backward").stop()
             # Update parameters.
             timers("optimizer").start()
@@ -734,7 +737,7 @@ def train_step(neox_args, timers, data_iterator, model, optimizer, lr_scheduler)
         reduced_loss = {
             "lm_loss": reduce_losses(losses).mean()
         }  # reduces losses across machines for logging
-
+    print('dddd'*100)
     if neox_args.precision == "fp16" and model.optimizer.overflow:
         skipped_iter = 1
     else:
@@ -807,7 +810,7 @@ def train(
             overflow_monitor.check(skipped_iter)  # check for repeated overflow
         if neox_args.log_gradient_noise_scale:  # log noise scale if applicable
             noise_scale_logger.update()
-        print('2222'*100)
+        
         # get learning rate (if present) - if doing soft prompt tuning + pipe parallel, you
         # may have no tunable parameters on a specific rank
         if optimizer.param_groups:
@@ -816,7 +819,6 @@ def train(
             lr = 0
 
         # Logging.
-        print('aaaa'*100)
         report_memory_flag = training_log(
             neox_args=neox_args,
             timers=timers,
@@ -831,7 +833,6 @@ def train(
             optimizer=optimizer,
             noise_scale_logger=noise_scale_logger,
         )
-        print('bbbb'*100)
         # Checkpointing
         if neox_args.save and iteration in neox_args.save_iters:
             save_checkpoint(
@@ -848,7 +849,6 @@ def train(
             and iteration % neox_args.eval_interval == 0
             and neox_args.do_valid
         ):
-            print('cccc'*100)
             prefix = "iteration {}".format(iteration)
             evaluate_and_print_results(
                 neox_args=neox_args,
@@ -860,8 +860,7 @@ def train(
                 verbose=False,
                 timers=timers,
             )
-            print('dddd'*100)
-        print('eeee'*100)
+
         if neox_args.exit_interval and iteration % neox_args.exit_interval == 0:
             torch.distributed.barrier()
             time_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -872,7 +871,7 @@ def train(
                 )
             )
             sys.exit()
-        print('ffff'*100)
+
     return iteration
 
 
