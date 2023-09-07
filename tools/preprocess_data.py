@@ -171,7 +171,7 @@ def yield_from_files(fnames: list, semaphore):
 
     def hf_yielder(fname, semaphore):
         stream = filter(lambda x: x, lmd.Reader(fname).stream_data())    
-        for f in filter(lambda x: 'text' in x and len(json.leads(x)['text']) != 0, stream):
+        for f in filter(lambda x: 'text' in x and len(json.loads(x)['text']) != 0, stream):
             semaphore.acquire()
             yield f['text']
 
