@@ -379,7 +379,7 @@ class HFDataDownloader(DataDownloader):
             ds['train'].to_json(save_path)
 
 
-class IzumiFullDataset(HFSnapshotDownloader):
+class IzumiFullDataset(HFDataDownloader):
     name = "izumi_full_dataset"
     urls = [""]
     hf_repo_ids = [
@@ -388,21 +388,21 @@ class IzumiFullDataset(HFSnapshotDownloader):
         "izumi-lab/wikinews-ja-20230728"
     ]
 
-class IzumiWikiJaDataset(HFSnapshotDownloader):
+class IzumiWikiJaDataset(HFDataDownloader):
     name = "izumi_wiki_ja_dataset"
     urls = [""]
     hf_repo_ids = [
         "izumi-lab/wikipedia-ja-20230720",
     ]
 
-class IzumiWikiJaDataset(HFSnapshotDownloader):
+class IzumiWikiJaDataset(HFDataDownloader):
     name = "izumi_wiki_en_dataset"
     urls = [""]
     hf_repo_ids = [
         "izumi-lab/wikipedia-en-20230720",        
     ]
 
-class IzumiWikiNewsJaDataset(HFSnapshotDownloader):
+class IzumiWikiNewsJaDataset(HFDataDownloader):
     name = "izumi_wiki_news_dataset"
     urls = [""]
     hf_repo_ids = [
