@@ -395,7 +395,7 @@ class IzumiWikiJaDataset(HFDataDownloader):
         "izumi-lab/wikipedia-ja-20230720",
     ]
 
-class IzumiWikiJaDataset(HFDataDownloader):
+class IzumiWikiEnDataset(HFDataDownloader):
     name = "izumi_wiki_en_dataset"
     urls = [""]
     hf_repo_ids = [
@@ -445,7 +445,10 @@ DATA_DOWNLOADERS = {
     'oscar_ja': OSCARJa,
     'wiki_oscar_ja': WikiOSCARJa,
     'aozora_ja': AozoraJa,
-    'izumi_dataset': IzumiFullDataset
+    'izumi_dataset': IzumiFullDataset,
+    'izumi_wiki_ja_dataset': IzumiWikiJaDataset,
+    'izumi_wiki_en_dataset': IzumiWikiEnDataset,
+    'izumi_wiki_news_dataset': IzumiWikiNewsJaDataset
 }
 
 
