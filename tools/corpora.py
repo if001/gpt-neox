@@ -379,8 +379,8 @@ class HFDataDownloader(DataDownloader):
             ds['train'].to_json(save_path)
 
 
-class IzumiDataset(HFSnapshotDownloader):
-    name = "izumi_dataset"
+class IzumiFullDataset(HFSnapshotDownloader):
+    name = "izumi_full_dataset"
     urls = [""]
     hf_repo_ids = [
         "izumi-lab/wikipedia-ja-20230720",
@@ -388,6 +388,26 @@ class IzumiDataset(HFSnapshotDownloader):
         "izumi-lab/wikinews-ja-20230728"
     ]
 
+class IzumiWikiJaDataset(HFSnapshotDownloader):
+    name = "izumi_wiki_ja_dataset"
+    urls = [""]
+    hf_repo_ids = [
+        "izumi-lab/wikipedia-ja-20230720",
+    ]
+
+class IzumiWikiJaDataset(HFSnapshotDownloader):
+    name = "izumi_wiki_en_dataset"
+    urls = [""]
+    hf_repo_ids = [
+        "izumi-lab/wikipedia-en-20230720",        
+    ]
+
+class IzumiWikiNewsJaDataset(HFSnapshotDownloader):
+    name = "izumi_wiki_news_dataset"
+    urls = [""]
+    hf_repo_ids = [
+        "izumi-lab/wikinews-ja-20230728"        
+    ]    
 
 def maybe_download_gpt2_tokenizer_data(tokenizer_type, data_dir):
     if tokenizer_type is None or tokenizer_type == "GPT2BPETokenizer":
@@ -425,7 +445,7 @@ DATA_DOWNLOADERS = {
     'oscar_ja': OSCARJa,
     'wiki_oscar_ja': WikiOSCARJa,
     'aozora_ja': AozoraJa,
-    'izumi_dataset': IzumiDataset
+    'izumi_dataset': IzumiFullDataset
 }
 
 
