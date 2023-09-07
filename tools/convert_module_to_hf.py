@@ -183,7 +183,9 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
 
         # get layer from hf model
         hf_layer = hf_model.gpt_neox.layers[layer_i]
-        print('state_dict: ', hf_layer.state_dict())
+        for v, _ in hf_layer.state_dict():
+            print('state_dict: ', v)
+        print('-'*200)
 
         # + 2 bc of embed layer and a dummy _pre_transformer_block
         loaded_tp_ranks = load_partitions(
@@ -228,10 +230,16 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
         state_dict["attention.rotary_emb.inv_freq"] = loaded_tp_ranks[0][
             "attention.rotary_emb.inv_freq"
         ]
-        state_dict["attention.bias"] = hf_layer.state_dict()["attention.bias"]
-        state_dict["attention.masked_bias"] = hf_layer.state_dict()[
-            "attention.masked_bias"
-        ]
+
+        state_dict["attention.dense.bias"] = hf_layer.state_dict()["attention.dense.bias"]
+
+        if "attention.bias" in hf_layer.state_dict():
+            state_dict["attention.bias"] = hf_layer.state_dict()["attention.bias"]
+            
+        if "attention.masked_bias" in hf_layer.state_dict():
+            state_dict["attention.masked_bias"] = hf_layer.state_dict()[
+                "attention.masked_bias"
+            ]
 
         # load state_dict into layer
         hf_layer.load_state_dict(state_dict)
