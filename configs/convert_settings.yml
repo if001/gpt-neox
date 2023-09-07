@@ -1,6 +1,7 @@
 {
   "tokenizer_type": "SPMTokenizer",
-  "vocab-file": "./novelAI/tokenizer.model"
+  "vocab-file": "./novelAI/tokenizer.model",
+  
   "pipe_parallel_size": 1,
   "model_parallel_size": 1,
 
