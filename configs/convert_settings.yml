@@ -1,0 +1,30 @@
+{
+  "tokenizer_type": "SPMTokenizer"
+
+  "pipe_parallel_size": 1,
+  "model_parallel_size": 1,
+
+  # model settings
+  "num_layers": 6,
+  "hidden_size": 512,
+  "num_attention_heads": 8,
+  "seq_length": 2048,
+  "max_position_embeddings": 2048,
+  "pos_emb": "rotary",
+  "no_weight_tying": true,
+  "gpt_j_residual": false,
+  "output_layer_parallelism": "column",
+
+  "scaled_upper_triang_masked_softmax_fusion": false,
+  "bias_gelu_fusion": false,
+
+  "optimizer": {
+    "type": "Adam",
+    "params": {
+      "lr": 0.001,
+      "betas": [0.9, 0.95],
+      "eps": 1.0e-8,
+    }
+  },
+  "min_lr": 0.0001
+}
