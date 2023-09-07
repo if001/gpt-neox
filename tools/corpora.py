@@ -374,7 +374,7 @@ class HFDataDownloader(DataDownloader):
         for repo_id in self.hf_repo_ids:
             ds = load_dataset(repo_id)
             name = repo_id.split('/')[0]
-            save_path = f'{save_dir}/{name}.json'
+            save_path = f'{save_dir}/{name}.jsonl'
             print('save to', save_path)
             ds['train'].to_json(save_path)
 
