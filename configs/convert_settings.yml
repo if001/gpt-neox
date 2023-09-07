@@ -1,5 +1,5 @@
 {
-  "tokenizer_type": "SPMTokenizer"
+  "tokenizer_type": "SPMTokenizer",
 
   "pipe_parallel_size": 1,
   "model_parallel_size": 1,
