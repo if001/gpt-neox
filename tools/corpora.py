@@ -376,7 +376,7 @@ class HFDataDownloader(DataDownloader):
             name = repo_id.split('/')[0]
             save_path = f'{save_dir}/{name}.jsonl'
             print('save to', save_path)
-            ds['train'].to_json(save_path)
+            ds['train'].to_json(save_path, force_ascii=False)
 
 
 class IzumiFullDataset(HFDataDownloader):
