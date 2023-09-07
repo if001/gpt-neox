@@ -183,7 +183,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
 
         # get layer from hf model
         hf_layer = hf_model.gpt_neox.layers[layer_i]
-        for v, _ in hf_layer.state_dict():
+        for v in hf_layer.state_dict():
             print('state_dict: ', v)
         print('-'*200)
 
@@ -235,7 +235,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
 
         if "attention.bias" in hf_layer.state_dict():
             state_dict["attention.bias"] = hf_layer.state_dict()["attention.bias"]
-            
+
         if "attention.masked_bias" in hf_layer.state_dict():
             state_dict["attention.masked_bias"] = hf_layer.state_dict()[
                 "attention.masked_bias"
