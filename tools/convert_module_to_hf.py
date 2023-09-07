@@ -183,6 +183,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
 
         # get layer from hf model
         hf_layer = hf_model.gpt_neox.layers[layer_i]
+        print('state_dict: ', hf_layer.state_dict())
 
         # + 2 bc of embed layer and a dummy _pre_transformer_block
         loaded_tp_ranks = load_partitions(
