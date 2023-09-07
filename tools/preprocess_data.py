@@ -184,9 +184,9 @@ def yield_from_files(fnames: list, semaphore):
         print('fname', fname)
         if 'izumi' in fname:
             yield from yielder(fname, semaphore)
-        if 'wiki' in fname:        
+        elif 'wiki' in fname:        
             yield from wiki_yielder(fname, semaphore)
-        if 'aozora' in fname:
+        elif 'aozora' in fname:
             yield from aozora_yielder(fname, semaphore)
         else:
             yield from yielder(fname, semaphore)
