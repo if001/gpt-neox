@@ -18,6 +18,9 @@
 """Train"""
 from megatron.neox_arguments import NeoXArgs
 from megatron.training import pretrain
+import logging
+
+logging.basicConfig(level=logging.WARNING)
 
 if __name__ == "__main__":
     neox_args = NeoXArgs.consume_neox_args()
