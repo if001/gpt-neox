@@ -97,4 +97,13 @@
 
   ## tokenizer type
   "tokenizer_type": "SPMTokenizer"
+
+  "deepspeed_extra_args": {
+    "comms_logger": {
+      "enabled": false,
+      "verbose": false,
+      "prof_all": false,
+      "debug": false
+    }
+  }
 }
