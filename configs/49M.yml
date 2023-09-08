@@ -14,7 +14,7 @@
   "no_weight_tying": true,
   "gpt_j_residual": true,
   "output_layer_parallelism": "column",
-  "use_bnb_optimizer": true,
+  # "use_bnb_optimizer": true,
 
 
   # these should provide some speedup but takes a while to build, set to true if desired
