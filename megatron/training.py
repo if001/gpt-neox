@@ -58,7 +58,9 @@ from megatron.model.gpt2_model import cross_entropy
 from eval_tasks import run_eval_harness
 
 import logging
-logging.getLogger('deepspeed').setLevel(logging.WARNING)
+from deepspeed.utils import logger as ds_logger
+ds_logger.setLevel(logging.WARNING)
+
 
 def mup_weights_reinit(neox_args, model):
     def has_method(o, name):
