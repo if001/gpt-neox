@@ -44,9 +44,10 @@
     "overlap_comm": True,
     "reduce_scatter": True,
     "reduce_bucket_size": 500000000,
-    "contiguous_gradients": True
+    "contiguous_gradients": True,
+    "zero_allow_untested_optimizer": True,
   },
-  "zero_allow_untested_optimizer": True,
+  
 
   # batch / data settings
   "train_micro_batch_size_per_gpu": 8,
