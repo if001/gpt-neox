@@ -301,7 +301,7 @@ class Timers:
         for name in names:
             elapsed_time = self.timers[name].elapsed(reset=reset) * 1000.0 / normalizer
             string += " | {}: {:.2f}".format(name, elapsed_time)
-                
+        print("-"*10, string)
         if torch.distributed.is_initialized():
             if torch.distributed.get_rank() == 0:
                 print(string, flush=True)
