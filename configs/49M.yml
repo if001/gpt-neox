@@ -96,8 +96,8 @@
   "wall_clock_breakdown": true,
 
   ## tokenizer type
-  "tokenizer_type": "SPMTokenizer"
-
+  "tokenizer_type": "SPMTokenizer",
+  
   "deepspeed_extra_args": {
     "comms_logger": {
       "enabled": false,
