@@ -640,6 +640,14 @@ class ParallelSelfAttention(nn.Module):
             mixed_x_layer, 3
         )
 
+        ## for xpos
+        if layer_past is not None:
+            past_key, past_value = layer_past
+            key_layer = torch.cat((past_key.type_as(key_layer),
+                                   key_layer), dim=0)
+            value_layer = torch.cat((past_value.type_as(value_layer),
+                                     value_layer), dim=0)
+
         if exists(self.rotary_emb):
             if exists(self.rotary_ndims):
                 # partial rotary
