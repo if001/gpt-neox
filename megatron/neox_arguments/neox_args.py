@@ -229,10 +229,10 @@ class NeoXArgsModel(NeoXArgsTemplate):
     """
 
     activation: Literal[
-        "gelu", "geglu", "relu", "softsign", "swish", "mish", "silu"
+        "gelu", "geglu", "relu", "softsign", "swish", "mish", "silu", "swiglu"
     ] = "gelu"
     """
-    Activation function to use - choose from ["gelu", "geglu", "relu", "softsign", "swish", "mish", "silu"]
+    Activation function to use - choose from ["gelu", "geglu", "relu", "softsign", "swish", "mish", "silu", "swiglu"]
     """
 
     scaled_upper_triang_masked_softmax_fusion: bool = False
