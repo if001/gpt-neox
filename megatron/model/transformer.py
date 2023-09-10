@@ -682,62 +682,47 @@ class ParallelSelfAttention(nn.Module):
             # ===================================
             # Raw attention scores. [b, np, s, s]
             # ===================================
-
+            _sq, _b, _np, _hn = query_layer.size()
+            
             # [b, np, sq, sk]
-
-            _b, _s, _s2, _e = query_layer.size()
             output_size = (query_layer.size(1),
                         query_layer.size(2),
                         query_layer.size(0),
                         key_layer.size(0))
-            print('output_size', output_size)
-            print('query_layer0', query_layer.size()) # torch.Size([64, 80, 64])
-            print('key_layer0', key_layer.size()) # torch.Size([64, 80, 64])
+            print('key_layer 1' , key_layer.size())
 
+            
             # [sq, b, np, hn] -> [sq, b * np, hn]
             query_layer = query_layer.view(output_size[2],
                                         output_size[0] * output_size[1], -1)
             # [sk, b, np, hn] -> [sk, b * np, hn]
             key_layer = key_layer.view(output_size[3],
-                                    output_size[0] * output_size[1], -1)
-            
-            print('query_layer1', query_layer.size()) # torch.Size([64, 80, 64])
-            print('key_layer1', key_layer.size()) # torch.Size([64, 80, 64])
-
+                                    output_size[0] * output_size[1], -1)        
+            print('key_layer 2' , key_layer.size())
             seq_len = key_layer.shape[0]
             offset = 0
-            print('has layer_past', exists(layer_past))
             if exists(layer_past):
                 past_key, past_value = layer_past
                 key_layer = torch.cat((past_key.type_as(key_layer),
                                    key_layer), dim=0)
                 value_layer = torch.cat((past_value.type_as(value_layer),
                                      value_layer), dim=0)
-
-
+                
+            print('key_layer 3' , key_layer.size())
             if exists(layer_past) and layer_past.numel() > 0:
                 offset = layer_past[0].shape[0]
                 seq_len += offset
-            print('query_layer2', query_layer.size()) # torch.Size([64, 80, 64])
-            print('key_laye2', key_layer.size()) # torch.Size([64, 80, 64])
 
             apply_xpos_fn = apply_xpos_emb_torch if self.bf16 else apply_xpos_emb
             cos, sin, scale = self.xpos_emb(value_layer, seq_len=seq_len)
             query_layer, key_layer = apply_xpos_fn(
                 query_layer, key_layer, cos, sin, scale, offset=offset)
-            
-            print('query_layer3', query_layer.size()) # torch.Size([64, 80, 64])
-            print('key_layer3', key_layer.size()) # torch.Size([64, 80, 64])
-            print('value_layer3', value_layer.size()) # torch.Size([64, 8, 10, 64])            
-            query_layer = query_layer.view(_b, _s, _s2, _e)
-            key_layer = key_layer.view(_b, _s, _s2, _e)
-
-            print('query_layer4', query_layer.size()) # torch.Size([64, 80, 64])
-            print('key_layer4', key_layer.size()) # torch.Size([64, 80, 64])
-            print('value_layer4', value_layer.size()) # torch.Size([64, 8, 10, 64])
-
-
-
+            print('key_layer 4' , key_layer.size())
+            ## [b, np*sq, hn] -> [b, np, sq, hn]
+            query_layer = query_layer.view(_b, _np, _sq, _hn)
+            key_layer = key_layer.view(_b, _np, _sq, _hn)
+            print('key_layer 5' , key_layer.size())
+            exit(0)
         # ==================================
         # Cache key and value for inference
         # ==================================
