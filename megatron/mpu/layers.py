@@ -734,6 +734,7 @@ class RowParallelLinear(torch.nn.Module):
         self.parallel_output = parallel_output
 
     def forward(self, input_):
+        print('self.input_is_parallel', self.input_is_parallel)
         print('debug1: ', input_.size())
         if self.use_mup and self.mup_rescale_parameters:
             input_ /= self.width_mult()
