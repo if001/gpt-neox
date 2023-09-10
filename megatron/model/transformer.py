@@ -688,6 +688,8 @@ class ParallelSelfAttention(nn.Module):
                         query_layer.size(2),
                         query_layer.size(0),
                         key_layer.size(0))
+            print('query_layer0', query_layer.size()) # torch.Size([64, 80, 64])
+            print('key_layer0', key_layer.size()) # torch.Size([64, 80, 64])
 
             # [sq, b, np, hn] -> [sq, b * np, hn]
             query_layer = query_layer.view(output_size[2],
@@ -695,6 +697,9 @@ class ParallelSelfAttention(nn.Module):
             # [sk, b, np, hn] -> [sk, b * np, hn]
             key_layer = key_layer.view(output_size[3],
                                     output_size[0] * output_size[1], -1)
+            
+            print('query_layer1', query_layer.size()) # torch.Size([64, 80, 64])
+            print('key_layer1', key_layer.size()) # torch.Size([64, 80, 64])
 
             seq_len = key_layer.shape[0]
             offset = 0
@@ -710,14 +715,16 @@ class ParallelSelfAttention(nn.Module):
             if exists(layer_past) and layer_past.numel() > 0:
                 offset = layer_past[0].shape[0]
                 seq_len += offset
+            print('query_layer2', query_layer.size()) # torch.Size([64, 80, 64])
+            print('key_laye2', key_layer.size()) # torch.Size([64, 80, 64])
 
             apply_xpos_fn = apply_xpos_emb_torch if self.bf16 else apply_xpos_emb
             cos, sin, scale = self.xpos_emb(value_layer, seq_len=seq_len)
             query_layer, key_layer = apply_xpos_fn(
-                query_layer, key_layer, cos, sin, scale, offset=offset)            
-            print('query_layer', query_layer.size())
-            print('key_layer', key_layer.size())
-            print('value_layer', value_layer.size())
+                query_layer, key_layer, cos, sin, scale, offset=offset)
+            print('query_layer3', query_layer.size()) # torch.Size([64, 80, 64])
+            print('key_layer3', key_layer.size()) # torch.Size([64, 80, 64])
+            print('value_layer3', value_layer.size()) # torch.Size([64, 8, 10, 64])
 
 
         # ==================================
