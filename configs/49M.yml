@@ -14,12 +14,36 @@
   "no_weight_tying": true,
   "gpt_j_residual": true,
   "output_layer_parallelism": "column",
+  # "activation": "glue",
+  "activation": "swiglu",
+  "norm": "rmsnorm",
   # "use_bnb_optimizer": true,
 
-
   # these should provide some speedup but takes a while to build, set to true if desired
-  "scaled_upper_triang_masked_softmax_fusion": false,
-  "bias_gelu_fusion": false,
+  #"scaled_upper_triang_masked_softmax_fusion": false,
+  #"bias_gelu_fusion": false,
+  "scaled_upper_triang_masked_softmax_fusion": true,
+  "bias-gelu-fusion": true,
+  "attention-config": [
+        [
+            [
+                "flash"
+            ],
+            10
+        ]
+  ],
+  "curriculum_learning": {
+        "enabled": true,
+        "curriculum_type": "seqlen",
+        "min_difficulty": 64,
+        "max_difficulty": 2048,
+        "schedule_type": "fixed_linear",
+        "schedule_config": {
+            "total_curriculum_step": 20000,
+            "difficulty_step": 8
+        }
+  },
+
 
   # init methods
   "init_method": "small_init",
