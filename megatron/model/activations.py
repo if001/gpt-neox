@@ -124,7 +124,7 @@ def mish(x):
 
 @torch.jit.script
 def swiglu(x):
-    print("x0 x1 111: ", x)
+    print("x0 x1 111: ", x.size())
     x = torch.chunk(x, 2, dim=-1)
     print("x0 x1 222: ", x[0].size(), x[1].size())
     return F.silu(x[0]) * x[1]
