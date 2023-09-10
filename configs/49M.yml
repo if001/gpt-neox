@@ -14,7 +14,7 @@
   "no_weight_tying": true,
   "gpt_j_residual": true,
   "output_layer_parallelism": "column",
-  "activation": "glue",
+  "activation": "gelu",
   # "activation": "swiglu",
   "norm": "rmsnorm",
   # "use_bnb_optimizer": true,
