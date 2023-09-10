@@ -690,6 +690,7 @@ class ParallelSelfAttention(nn.Module):
                         query_layer.size(2),
                         query_layer.size(0),
                         key_layer.size(0))
+            print('output_size', output_size)
             print('query_layer0', query_layer.size()) # torch.Size([64, 80, 64])
             print('key_layer0', key_layer.size()) # torch.Size([64, 80, 64])
 
