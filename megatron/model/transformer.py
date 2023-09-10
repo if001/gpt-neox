@@ -675,6 +675,12 @@ class ParallelSelfAttention(nn.Module):
 
         ## xpos
         if exists(self.xpos_emb):
+            seq_len = key_layer.shape[0]
+            offset = 0
+            if exists(layer_past) and layer_past.numel() > 0:
+                offset = layer_past[0].shape[0]
+                seq_len += offset
+
             apply_xpos_fn = apply_xpos_emb_torch if self.bf16 else apply_xpos_emb
             cos, sin, scale = self.xpos_emb(value_layer, seq_len=seq_len)
             query_layer, key_layer = apply_xpos_fn(
