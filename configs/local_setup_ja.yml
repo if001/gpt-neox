@@ -20,16 +20,17 @@
 
   #"save": "checkpoints",
   # "load": "checkpoints",
-  "save": "/content/drive/MyDrive/pre_trained/49M",
-  "load": "/content/drive/MyDrive/pre_trained/49M",
+  "save": "/content/drive/MyDrive/pre_trained/49M/checkpoints",
+  "load": "/content/drive/MyDrive/pre_trained/49M/checkpoints",
 
   "checkpoint_validation_with_forward_pass": False,
 
   ## logging
-  "log_dir": "logs",
+  # "log_dir": "logs",
+  "log_dir": "/content/drive/MyDrive/pre_trained/49M/logs", 
 
   # "tensorboard_dir": "tensorboard",
-  "tensorboard_dir": "/content/drive/MyDrive/pre_trained/49M", 
-  "log_dir": "logs",
+  "tensorboard_dir": "/content/drive/MyDrive/pre_trained/49M/tensorboard", 
+  # "log_dir": "logs",
   "use_wandb": False
 }
