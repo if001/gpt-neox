@@ -120,7 +120,7 @@ class ParallelMLP(nn.Module):
 
         if (
             self.activation_type == "gelu" and self.bias_gelu_fusion
-        ) or self.activation_type == "geglu":
+        ) or self.activation_type == "geglu" or self.activation_type == "swiglu":
             intermediate_parallel = self.activation_func(
                 intermediate_parallel, bias_parallel
             )
