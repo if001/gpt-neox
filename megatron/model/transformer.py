@@ -728,6 +728,12 @@ class ParallelSelfAttention(nn.Module):
         if self.use_cache:
             present = torch.stack((key_layer, value_layer))
 
+        if exists(self.xpos_emb):
+            # change view [sk, b * np, hn]
+            value_layer = value_layer.view(value_layer.size(0),
+                                       output_size[0] * output_size[1], -1)
+            
+
         if self.use_flash_attention:
             context_layer = self.flash_attention(query_layer, key_layer, value_layer)
         elif not self.sparse:
