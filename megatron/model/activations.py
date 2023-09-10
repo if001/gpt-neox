@@ -46,7 +46,9 @@ def get_activation(neox_args):
     elif neox_args.activation == "mish":
         activation_func = mish
     elif neox_args.activation == "silu":
-        activation_func = F.silu
+        activation_func = F.silu        
+    elif neox_args.activation == "swiglu":
+        activation_func = swiglu        
     else:
         raise ValueError(f"Activation function {neox_args.activation} not recognized")
     return activation_func
@@ -120,6 +122,10 @@ def swish(x, beta: float = 1.0):
 def mish(x):
     return x * torch.tanh(F.softplus(x))
 
+@torch.jit.script
+def swiglu(x):
+    x = torch.chunk(x, 2, dim=-1)
+    return F.silu(x[0]) * x[1]
 
 class GEGLU(torch.nn.Module):
     def __init__(self, neox_args):
