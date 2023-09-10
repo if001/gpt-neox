@@ -746,6 +746,7 @@ class RowParallelLinear(torch.nn.Module):
         ## (512x1280 and 2560x640)
         print('debug: ', input_parallel.size(), self.weight.size())
         exit(0)
+        ## xpos debug:  torch.Size([64, 8, 640]) torch.Size([640, 640])
         output_parallel = F.linear(input_parallel, self.weight)
         # All-reduce across all the partitions.
         if not self.parallel_output:
