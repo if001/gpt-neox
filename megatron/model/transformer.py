@@ -722,9 +722,17 @@ class ParallelSelfAttention(nn.Module):
             cos, sin, scale = self.xpos_emb(value_layer, seq_len=seq_len)
             query_layer, key_layer = apply_xpos_fn(
                 query_layer, key_layer, cos, sin, scale, offset=offset)
+            
             print('query_layer3', query_layer.size()) # torch.Size([64, 80, 64])
             print('key_layer3', key_layer.size()) # torch.Size([64, 80, 64])
-            print('value_layer3', value_layer.size()) # torch.Size([64, 8, 10, 64])
+            print('value_layer3', value_layer.size()) # torch.Size([64, 8, 10, 64])            
+            query_layer = query_layer.view(*output_size)
+            key_layer = key_layer.view(*output_size)
+
+            print('query_layer4', query_layer.size()) # torch.Size([64, 80, 64])
+            print('key_layer4', key_layer.size()) # torch.Size([64, 80, 64])
+            print('value_layer4', value_layer.size()) # torch.Size([64, 8, 10, 64])
+
 
 
         # ==================================
