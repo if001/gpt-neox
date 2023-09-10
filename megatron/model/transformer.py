@@ -684,6 +684,8 @@ class ParallelSelfAttention(nn.Module):
             # ===================================
 
             # [b, np, sq, sk]
+
+            _b, _s, _s2, _e = query_layer.size()
             output_size = (query_layer.size(1),
                         query_layer.size(2),
                         query_layer.size(0),
@@ -726,8 +728,8 @@ class ParallelSelfAttention(nn.Module):
             print('query_layer3', query_layer.size()) # torch.Size([64, 80, 64])
             print('key_layer3', key_layer.size()) # torch.Size([64, 80, 64])
             print('value_layer3', value_layer.size()) # torch.Size([64, 8, 10, 64])            
-            query_layer = query_layer.view(*output_size)
-            key_layer = key_layer.view(*output_size)
+            query_layer = query_layer.view(_b, _s, _s2, _e)
+            key_layer = key_layer.view(_b, _s, _s2, _e)
 
             print('query_layer4', query_layer.size()) # torch.Size([64, 80, 64])
             print('key_layer4', key_layer.size()) # torch.Size([64, 80, 64])
