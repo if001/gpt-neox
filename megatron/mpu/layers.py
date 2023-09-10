@@ -734,6 +734,7 @@ class RowParallelLinear(torch.nn.Module):
         self.parallel_output = parallel_output
 
     def forward(self, input_):
+        print('debug1: ', input_.size())
         if self.use_mup and self.mup_rescale_parameters:
             input_ /= self.width_mult()
         # Set up backprop all-reduce.
@@ -744,7 +745,7 @@ class RowParallelLinear(torch.nn.Module):
         # Matrix multiply.
 
         ## (512x1280 and 2560x640)
-        print('debug: ', input_parallel.size(), self.weight.size())
+        print('debug2: ', input_parallel.size(), self.weight.size())
         ##  exit(0)
         ## xpos debug:  torch.Size([64, 8, 640]) torch.Size([640, 640])
         ##              torch.Size([64, 8, 640]) torch.Size([640, 640])
