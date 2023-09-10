@@ -32,6 +32,9 @@ from megatron.model.positional_embeddings import (
     apply_rotary_pos_emb_torch,
     apply_rotary_pos_emb,
     AliBi,
+    XPosEmbedding,
+    apply_xpos_emb_torch,
+    apply_xpos_emb
 )
 from megatron.model.fused_bias_dropout import (
     get_bias_dropout_add,
@@ -120,7 +123,7 @@ class ParallelMLP(nn.Module):
 
         if (
             self.activation_type == "gelu" and self.bias_gelu_fusion
-        ) or self.activation_type == "geglu" or self.activation_type == "swiglu":
+        ) or self.activation_type == "geglu":
             intermediate_parallel = self.activation_func(
                 intermediate_parallel, bias_parallel
             )
@@ -332,6 +335,11 @@ class ParallelSelfAttention(nn.Module):
         else:
             self.rotary_emb = None
 
+        ## xpos
+        if neox_args.pos_emb == "xpos":
+            self.xpos_emb = XPosEmbedding(self.hidden_size_per_attention_head, precision=neox_args.params_dtype)
+        else:
+            self.xpos_emb = None
         self.attention_type = neox_args.attention_config[layer_number]
         self.use_flash_attention = self.attention_type == "flash"
         self.sparse = self.attention_type not in ("global", "flash")
@@ -664,6 +672,14 @@ class ParallelSelfAttention(nn.Module):
             if exists(self.rotary_ndims):
                 query_layer = torch.cat((query_layer, query_pass), dim=-1)
                 key_layer = torch.cat((key_layer, key_pass), dim=-1)
+
+        ## xpos
+        if exists(self.xpos_emb):
+            apply_xpos_fn = apply_xpos_emb_torch if self.bf16 else apply_xpos_emb
+            cos, sin, scale = self.xpos_emb(value_layer, seq_len=seq_len)
+            query_layer, key_layer = apply_xpos_fn(
+                query_layer, key_layer, cos, sin, scale, offset=offset)            
+
 
         # ==================================
         # Cache key and value for inference

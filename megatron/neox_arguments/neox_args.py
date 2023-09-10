@@ -141,7 +141,7 @@ class NeoXArgsModel(NeoXArgsTemplate):
     """
 
     pos_emb: Literal[
-        "learned", "rotary", "sinusoidal", "rpe", "alibi", "none"
+        "learned", "rotary", "sinusoidal", "rpe", "alibi", "none", "xpos"
     ] = "learned"
     """
     Type of positional embedding to use - choose from 'learned', 'rotary', 'sinusoidal', 'rpe', 'none'
