@@ -742,6 +742,10 @@ class RowParallelLinear(torch.nn.Module):
         else:
             input_parallel = scatter_to_model_parallel_region(input_)
         # Matrix multiply.
+
+        ## (512x1280 and 2560x640)
+        print('debug: ', input_parallel.size(), self.weight.size())
+        exit(0)
         output_parallel = F.linear(input_parallel, self.weight)
         # All-reduce across all the partitions.
         if not self.parallel_output:
