@@ -25,14 +25,14 @@
   #"bias_gelu_fusion": false,
   "scaled_upper_triang_masked_softmax_fusion": true,  
   "bias-gelu-fusion": true,
-  "attention-config": [
-        [
-            [
-                "flash"
-            ],
-            10
-        ]
-  ],
+  # "attention-config": [
+  #       [
+  #           [
+  #               "flash"
+  #           ],
+  #           10
+  #       ]
+  # ],
   "curriculum_learning": {
         "enabled": true,
         "curriculum_type": "seqlen",
