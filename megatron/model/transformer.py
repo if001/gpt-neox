@@ -676,6 +676,23 @@ class ParallelSelfAttention(nn.Module):
 
         ## xpos
         if exists(self.xpos_emb):
+            # ===================================
+            # Raw attention scores. [b, np, s, s]
+            # ===================================
+
+            # [b, np, sq, sk]
+            output_size = (query_layer.size(1),
+                        query_layer.size(2),
+                        query_layer.size(0),
+                        key_layer.size(0))
+
+            # [sq, b, np, hn] -> [sq, b * np, hn]
+            query_layer = query_layer.view(output_size[2],
+                                        output_size[0] * output_size[1], -1)
+            # [sk, b, np, hn] -> [sk, b * np, hn]
+            key_layer = key_layer.view(output_size[3],
+                                    output_size[0] * output_size[1], -1)
+
             seq_len = key_layer.shape[0]
             offset = 0
             print('has layer_past', exists(layer_past))
