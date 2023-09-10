@@ -672,9 +672,10 @@ class ParallelSelfAttention(nn.Module):
             if exists(self.rotary_ndims):
                 query_layer = torch.cat((query_layer, query_pass), dim=-1)
                 key_layer = torch.cat((key_layer, key_pass), dim=-1)
-            print('query_layer', query_layer.size())
-            print('key_layer', key_layer.size())
-            print('value_layer', value_layer.size())
+                                
+            # print('query_layer', query_layer.size()) #torch.Size([64, 8, 10, 64])
+            # print('key_layer', key_layer.size())  #torch.Size([64, 8, 10, 64])
+            # print('value_layer', value_layer.size())  #torch.Size([64, 8, 10, 64])
             
         ## xpos
         if exists(self.xpos_emb):
