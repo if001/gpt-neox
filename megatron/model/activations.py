@@ -125,6 +125,7 @@ def mish(x):
 @torch.jit.script
 def swiglu(x):
     x = torch.chunk(x, 2, dim=-1)
+    print("x0 x1: ", x[0].size(), x[1].size())
     return F.silu(x[0]) * x[1]
 
 class GEGLU(torch.nn.Module):

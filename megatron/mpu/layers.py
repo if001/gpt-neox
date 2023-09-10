@@ -744,7 +744,7 @@ class RowParallelLinear(torch.nn.Module):
         # Matrix multiply.
 
         ## (512x1280 and 2560x640)
-        ## print('debug: ', input_parallel.size(), self.weight.size())
+        print('debug: ', input_parallel.size(), self.weight.size())
         ##  exit(0)
         ## xpos debug:  torch.Size([64, 8, 640]) torch.Size([640, 640])
         ##              torch.Size([64, 8, 640]) torch.Size([640, 640])
