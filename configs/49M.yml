@@ -113,7 +113,7 @@
   "eval_interval": 100000,
   "eval_iters": 1000,
   "keep_last_n_checkpoints": 4,
-  "save_iters": 10000,
+  "save_iters": 5000,
 
   # logging
   "log_interval": 1000,
