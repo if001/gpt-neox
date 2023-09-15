@@ -1,4 +1,5 @@
-from transformers.models.gpt_neox import GPTNeoXPreTrainedModel, GPTNeoXModel, GPTNeoXLayer, GPTNeoXMLP
+from transformers.models.gpt_neox import GPTNeoXPreTrainedModel, GPTNeoXModel, GPTNeoXLayer
+from transformers.models.gpt_neox.modeling_gpt_neox import GPTNeoXMLP
 from transformers.activations import ClassInstantier, ACT2CLS
 from torch import Tensor, nn
 
@@ -36,7 +37,7 @@ class GPTNeoX2MLP(GPTNeoXMLP):
         super().__init__()
         self.act = ACT2FN[config.hidden_act]
 
-class GPTNeoX2Layer(GPTNeoXModel):
+class GPTNeoX2Layer(GPTNeoXLayer):
     def __init__(self, config):
         super().__init__()
         self.mlp = GPTNeoX2MLP(config)
