@@ -44,9 +44,11 @@ class GPTNeoX2Layer(GPTNeoXLayer):
 
 class GPTNeoX2Model(GPTNeoXModel):
     def __init__(self, config):
-        _config = config.deepcopy()
-        _config.hidden_act = "gelu"
-        super().__init__(_config)
+        _copy_hidden_act = config.hidden_act        
+        config.hidden_act = "gelu"
+        super().__init__(config)
+
+        config.hidden_act = _copy_hidden_act
         self.layers = nn.ModuleList([GPTNeoX2Layer(config) for _ in range(config.num_hidden_layers)])
 
 class GPTNeoX2ForCausalLM(GPTNeoXPreTrainedModel):
