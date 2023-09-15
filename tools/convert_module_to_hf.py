@@ -23,7 +23,7 @@ from typing import List
 import torch
 from transformers import GPTNeoXConfig, GPTNeoXForCausalLM
 
-from ..hf_gptneox import GPTNeoX2ForCausalLM
+from hf_gptneox import GPTNeoX2ForCausalLM
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
