@@ -23,6 +23,7 @@ from typing import List
 import torch
 from transformers import GPTNeoXConfig, GPTNeoXForCausalLM
 
+from ..hf_gptneox import GPTNeoX2ForCausalLM
 
 sys.path.append(
     os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir))
@@ -145,7 +146,9 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
 
     hf_config = create_config(loaded_config)
 
-    hf_model = GPTNeoXForCausalLM(hf_config)
+    # hf_model = GPTNeoXForCausalLM(hf_config)
+    ## for swiglu
+    hf_model = GPTNeoX2ForCausalLM(hf_config)    
 
     # save model in fp16/bf16 if Deepspeed fp16 or bf16 mixed precision was used in config, else 32 bit weights
     fp16 = get_key(loaded_config, "fp16")
