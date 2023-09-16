@@ -187,7 +187,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
         # get layer from hf model
         hf_layer = hf_model.gpt_neox.layers[layer_i]
         for v in hf_layer.state_dict():
-            print('state_dict: ', v)
+            print('debug state_dict: ', v)
         print('-'*200)
 
         # + 2 bc of embed layer and a dummy _pre_transformer_block
@@ -196,7 +196,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
         )
 
         for t in loaded_tp_ranks:
-            print('t', t.keys())
+            print('debug loaded_tp_ranks: ', t.keys())
 
         state_dict = {}
         for key in [
@@ -212,10 +212,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             "post_attention_layernorm.weight",
             "post_attention_layernorm.bias",
         ]
-        keysForSwiglu = [            
-            "post_attention_layernorm.weight",
-            "post_attention_layernorm.bias",
-        ]
+        keysForSwiglu = []
         for key in keysForSwiglu:
             state_dict[key] = (sum([t[key] for t in loaded_tp_ranks])) / len(
                 loaded_tp_ranks
