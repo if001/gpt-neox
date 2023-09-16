@@ -28,8 +28,16 @@ class SwiGLUFFN(nn.Module):
         x1, x2 = x12.chunk(2, dim=-1)
         hidden = F.silu(x1) * x2
         return self.w3(hidden)
+    
+class SwiGLU(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
 
-ACT2CLS['swiglu'] = SwiGLUFFN
+    def forward(self, x: Tensor) -> Tensor:
+        return F.silu(x) * x
+
+# ACT2CLS['swiglu'] = SwiGLUFFN
+ACT2CLS['swiglu'] = SwiGLU
 ACT2FN = ClassInstantier(ACT2CLS)
 
 class GPTNeoX2MLP(GPTNeoXMLP):
@@ -37,7 +45,7 @@ class GPTNeoX2MLP(GPTNeoXMLP):
         _copy_hidden_act = config.hidden_act
         config.hidden_act = "gelu"
         super().__init__(config)
-        
+
         config.hidden_act = _copy_hidden_act
         self.act = ACT2FN[config.hidden_act]
 
