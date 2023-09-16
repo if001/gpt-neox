@@ -34,12 +34,12 @@ ACT2FN = ClassInstantier(ACT2CLS)
 
 class GPTNeoX2MLP(GPTNeoXMLP):
     def __init__(self, config):
-        super().__init__()
+        super().__init__(config)
         self.act = ACT2FN[config.hidden_act]
 
 class GPTNeoX2Layer(GPTNeoXLayer):
     def __init__(self, config):
-        super().__init__()
+        super().__init__(config)
         self.mlp = GPTNeoX2MLP(config)
 
 class GPTNeoX2Model(GPTNeoXModel):
