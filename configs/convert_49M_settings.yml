@@ -17,7 +17,7 @@
   "pos_emb": "xpos",
 
   ## ------------------- 
-  "pos_emb": "rotary",
+  # "pos_emb": "rotary",
   "no_weight_tying": true,
   "gpt_j_residual": false,
   "output_layer_parallelism": "column",
