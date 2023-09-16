@@ -209,8 +209,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             "post_attention_layernorm.weight",
             "post_attention_layernorm.bias",
         ]
-        keysForSwiglu = [
-            "input_layernorm.bias",
+        keysForSwiglu = [            
             "post_attention_layernorm.weight",
             "post_attention_layernorm.bias",
         ]
