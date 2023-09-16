@@ -195,6 +195,9 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             input_checkpoint_path, mp_partitions, layer_i + 2
         )
 
+        for t in loaded_tp_ranks:
+            print('t', t.keys())
+
         state_dict = {}
         for key in [
             "attention.dense.weight",
