@@ -203,12 +203,18 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             state_dict[key] = torch.cat([t[key] for t in loaded_tp_ranks], dim=1)
 
         # average layernorm stats over mp ranks
-        for key in [
+        keysForOriginGPTNeoX=[
             "input_layernorm.weight",
             "input_layernorm.bias",
             "post_attention_layernorm.weight",
             "post_attention_layernorm.bias",
-        ]:
+        ]
+        keysForSwiglu = [
+            "input_layernorm.bias",
+            "post_attention_layernorm.weight",
+            "post_attention_layernorm.bias",
+        ]
+        for key in keysForSwiglu:
             state_dict[key] = (sum([t[key] for t in loaded_tp_ranks])) / len(
                 loaded_tp_ranks
             )
