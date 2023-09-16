@@ -235,9 +235,11 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             state_dict[key] = sum([t[key] for t in loaded_tp_ranks])
 
         # Just take one
+        print('debug: ', loaded_config)
         state_dict["attention.rotary_emb.inv_freq"] = loaded_tp_ranks[0][
             "attention.rotary_emb.inv_freq"
         ]
+        
 
         state_dict["attention.dense.bias"] = hf_layer.state_dict()["attention.dense.bias"]
 
