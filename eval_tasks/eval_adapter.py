@@ -24,7 +24,7 @@ def _download_file(*args, **kwargs):
         fn(*args, **kwargs)
 
 
-best_download.download_file = _download_file
+# best_download.download_file = _download_file
 
 import os
 import sys
