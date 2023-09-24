@@ -247,7 +247,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
             ]
         
 
-        state_dict["attention.dense.bias"] = hf_layer.state_dict()["attention.dense.bias"]
+        # state_dict["attention.dense.bias"] = hf_layer.state_dict()["attention.dense.bias"]
 
         if "attention.bias" in hf_layer.state_dict():
             state_dict["attention.bias"] = hf_layer.state_dict()["attention.bias"]
