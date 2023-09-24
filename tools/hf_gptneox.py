@@ -158,6 +158,7 @@ class GPTNeoX2Attention(nn.Module):
         self.register_buffer("masked_bias", torch.tensor(-1e9), persistent=False)
 
         self.rotary_ndims = int(self.head_size * config.rotary_pct)
+        print('config', config)
         self.rotary_emb = RotaryEmbedding(
             self.rotary_ndims,
             max_position_embeddings=config.max_position_embeddings,
