@@ -162,8 +162,7 @@ class GPTNeoX2Attention(nn.Module):
         self.rotary_emb = RotaryEmbedding(
             self.rotary_ndims,
             max_position_embeddings=config.max_position_embeddings,
-            base=config.rotary_emb_base,
-            scale_base=config.rotary_scale_base,
+            base=config.rotary_emb_base            
         )
 
         self.register_buffer(
