@@ -236,7 +236,7 @@ def convert(input_checkpoint_path, loaded_config, output_checkpoint_path):
         # LinearWithTPSplitBias
         for key in [
             "mlp.dense_4h_to_h.bias",
-            "attention.dense.bias",
+            # "attention.dense.bias",
         ]:
             state_dict[key] = sum([t[key] for t in loaded_tp_ranks])
 
