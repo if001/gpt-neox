@@ -620,6 +620,9 @@ def setup_model_and_optimizer(neox_args, use_cache=False, iteration=None):
     optimizer, param_groups = get_optimizer(model=model, neox_args=neox_args)
     lr_scheduler = get_learning_rate_scheduler(optimizer=optimizer, neox_args=neox_args)
 
+    ## force enable
+    neox_args.deepspeed = False
+
     if neox_args.deepspeed:
         print_rank_0("DeepSpeed is enabled.")
         if neox_args.no_load_optim:
